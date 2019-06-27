@@ -13,7 +13,7 @@ Contributions are also welcome!
 
 ## How to Contribute
 
-If you want to implement a command, please create an issue, and I'll to reply and give the okay.
+If you want to implement a command, please create an issue, and I'll try ASAP to reply and give the okay.
 
 Tests would be nice.
 
