@@ -7,7 +7,7 @@ Contributions are also welcome!
 ## Feature Checklist
 
 - [x] ls: List files in current directory
-- [] ls \<path\>: List files at directory
+- [ ] ls \<path\>: List files at directory
 - [ ] cd \<path\>: Change directory
 - [ ] cat \<file\>: Print contents of file to stdout
 
