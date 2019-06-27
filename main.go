@@ -6,8 +6,8 @@ import (
 	"os"
 	"strings"
 
-	"github.com/xchenny/gshell/src/commands"
-	"github.com/xchenny/gshell/src/ui"
+	"github.com/xchenny/gshell/commands"
+	"github.com/xchenny/gshell/ui"
 )
 
 func main() {
