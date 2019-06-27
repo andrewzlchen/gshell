@@ -17,4 +17,4 @@ If you want to implement a command, please create an issue, and I'll to reply an
 
 Tests would be nice.
 
-So far, this project is basically vanilla go, so once you clone this, it should be go to go. (pun intended.)
+So far, this project is basically vanilla go, so once you clone this, it should be good to go. (pun intended.)
