@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"os"
 	"strings"
+	"sync"
 
 	"github.com/xchenny/gshell/commands"
 	"github.com/xchenny/gshell/ui"
@@ -15,6 +16,7 @@ func main() {
 	done := false
 	userInputChan := make(chan string)
 	handlerOutputChan := make(chan string)
+	var writeMutex sync.Mutex
 
 	// worker that processes commands
 	go commands.CommandHandler(userInputChan, handlerOutputChan)
@@ -23,11 +25,13 @@ func main() {
 	go func() {
 		for output := range handlerOutputChan {
 			fmt.Println(output)
+			writeMutex.Unlock()
 		}
 	}()
 
 	// parent thread parses user input
 	for !done {
+		writeMutex.Lock()
 		ui.Prompt()
 		text, _ := reader.ReadString('\n')
 		// if we're done, then quit the loop
@@ -35,7 +39,6 @@ func main() {
 			done = true
 			close(userInputChan)
 		} else {
-			// TODO: IMPLEMENT WAITGROUPS FOR RESULTS TO PRINT BEFORE NEW PROMPT APPEARS
 			userInputChan <- text
 		}
 	}

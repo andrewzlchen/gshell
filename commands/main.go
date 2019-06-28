@@ -17,9 +17,8 @@ func CommandHandler(userInputChan <-chan string, handlerOutputChan chan<- string
 			handlerOutputChan <- "Hello back!\n"
 		case "ls":
 			fileList := ListFiles()
-			for _, fileName := range fileList {
-				handlerOutputChan <- fileName
-			}
+			output := strings.Join(fileList, "\n")
+			handlerOutputChan <- output
 		default:
 			handlerOutputChan <- "Unknown command!\n"
 		}
