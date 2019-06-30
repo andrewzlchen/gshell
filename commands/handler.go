@@ -16,7 +16,12 @@ func CommandHandler(userInputChan <-chan string, handlerOutputChan chan<- string
 		case "hi":
 			handlerOutputChan <- "Hello back!\n"
 		case "ls":
-			fileList := ListFiles()
+			var fileList []string
+			if len(toks) > 1 {
+				fileList = ListFiles(toks[1])
+			} else {
+				fileList = ListFiles(".")
+			}
 			output := strings.Join(fileList, "\n")
 			handlerOutputChan <- output
 		default:

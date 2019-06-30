@@ -1,14 +1,15 @@
 package commands
 
 import (
+	"fmt"
 	"io/ioutil"
 )
 
 // ListFiles lists all of the files/directory names in the current directory
-func ListFiles() []string {
-	files, err := ioutil.ReadDir(".")
+func ListFiles(path string) []string {
+	files, err := ioutil.ReadDir(path)
 	if err != nil {
-		return []string{"Could not read current directory!\n"}
+		return []string{fmt.Sprintf("Could not read the directory: %v\n", path)}
 	}
 	var fileList []string
 	for _, file := range files {
