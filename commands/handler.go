@@ -42,6 +42,15 @@ func CommandHandler(userInputChan <-chan string, handlerOutputChan chan<- string
 			handlerOutputChan <- output
 		case "pwd":
 			handlerOutputChan <- CurrentWD()
+		case "cat":
+			if len(toks) < 2 {
+				handlerOutputChan <- "Not enough arguments!\n"
+			} else {
+				fileContents := Cat(toks[1])
+				for _, line := range fileContents {
+					handlerOutputChan <- line
+				}
+			}
 		default:
 			handlerOutputChan <- "Unknown command!\n"
 		}

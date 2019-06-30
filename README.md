@@ -11,7 +11,7 @@ Contributions are also welcome!
 - [x] cd: Change directory to home directory
 - [x] cd \<path\>: Change directory
 - [x] pwd: Returns current working directory
-- [ ] cat \<file\>: Print contents of file to stdout
+- [x] cat \<file\>: Print contents of file to stdout
 
 ## How to Contribute
 
