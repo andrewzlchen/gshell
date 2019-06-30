@@ -4,7 +4,20 @@ gshell, or GoShell is a small shell project that I am building as a side project
 
 Contributions are also welcome!
 
+## Architecture
+
+This shell is built using 3 goroutines, or threads:
+
+1. A worker thread that receives results represented in string form only handles outputting these results to STDOUT
+2. A worker thread that takes user input and depending on the user input, will try to generate the correct answer to the user's request and sends it along to thread #1
+2. The main thread that handles STDIN (User input), and passes the user input to thread #2
+
 ## Feature Checklist
+
+- [ ] Colorized output
+- [ ] Tab completion
+
+## Command Checklist
 
 - [x] ls: List files in current directory
 - [x] ls \<path\>: List files at directory
