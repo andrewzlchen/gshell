@@ -10,7 +10,7 @@ This shell is built using 3 goroutines, or threads:
 
 1. **Output Thread**: A worker thread that receives results represented in string form that only handles outputting these results to STDOUT
 2. **Worker Thread**: A worker thread that takes user input and depending on the user input, will try to generate the correct answer to the user's request and sends it along to the `Output Thread`
-3. **Main Thread**: The main thread that handles STDIN (User input), and passes the user input to **Worker Thread**
+3. **Main Thread**: The main thread that handles STDIN (User input), and passes the user input to `Worker Thread`
 
 The way these threads talk to each other is a combination of the built-in `golang` mechanism, channels, and Mutexes.
 
