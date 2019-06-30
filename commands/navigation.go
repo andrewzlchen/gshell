@@ -32,3 +32,12 @@ func CurrentWD() string {
 	}
 	return dir + "\n"
 }
+
+// ChangeDir changes the current working directory to specified path
+func ChangeDir(dir string) string {
+	err := os.Chdir(dir)
+	if err != nil {
+		return fmt.Sprintf("Could not change directory to: %v\n", dir)
+	}
+	return ""
+}

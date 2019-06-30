@@ -2,6 +2,8 @@ package commands
 
 import (
 	"strings"
+
+	"github.com/mitchellh/go-homedir"
 )
 
 // CommandHandler is the main function within the 'commands' package that
@@ -24,6 +26,19 @@ func CommandHandler(userInputChan <-chan string, handlerOutputChan chan<- string
 			}
 			output := strings.Join(fileList, "\n")
 			output += "\n"
+			handlerOutputChan <- output
+		case "cd":
+			var output string
+			if len(toks) > 1 {
+				output = ChangeDir(toks[1])
+			} else {
+				home, err := homedir.Dir()
+				if err != nil {
+					handlerOutputChan <- err.Error()
+					continue
+				}
+				output = ChangeDir(home)
+			}
 			handlerOutputChan <- output
 		case "pwd":
 			handlerOutputChan <- CurrentWD()
