@@ -51,6 +51,20 @@ func CommandHandler(userInputChan <-chan string, handlerOutputChan chan<- string
 					handlerOutputChan <- line
 				}
 			}
+		case "wd":
+			if len(toks) < 2 {
+				handlerOutputChan <- "Not enough arguments!\n"
+			} else if len(toks) == 2 {
+				output := Wd(toks[1])
+				if output != "" {
+					handlerOutputChan <- output
+				}
+			}
+			// else if len(toks) == 3 {
+			// 	switch toks[1] {
+			// 	case "add"
+			// 	}
+			// }
 		default:
 			handlerOutputChan <- "Unknown command!\n"
 		}

@@ -4,6 +4,9 @@ import (
 	"fmt"
 	"io/ioutil"
 	"os"
+
+	"github.com/go-redis/redis"
+	"github.com/xchenny/gshell/configs"
 )
 
 // ListFiles lists all of the files/directory names in the current directory
@@ -39,5 +42,19 @@ func ChangeDir(dir string) string {
 	if err != nil {
 		return fmt.Sprintf("Could not change directory to: %v\n", dir)
 	}
+	return ""
+}
+
+// Wd looks up if the passed in name exists in the database. If it does,
+// it will jump to that location in the file system
+func Wd(dirName string) string {
+	client := redis.NewClient(configs.RedisOptions())
+	path, err := client.Get(dirName).Result()
+	if err == redis.Nil {
+		return fmt.Sprintf("No path associated with the name: '%s'\n", dirName)
+	} else if err != nil {
+		return fmt.Sprintf("Error occurred while getting filepath: %v\n", err)
+	}
+	ChangeDir(path)
 	return ""
 }
