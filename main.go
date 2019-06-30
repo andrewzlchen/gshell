@@ -23,9 +23,15 @@ func main() {
 
 	// worker that displays results of commands
 	go func() {
+		stopToken := "/STOP"
 		for output := range handlerOutputChan {
-			fmt.Println(output)
-			writeMutex.Unlock()
+			// if the command is done printing, then unlock
+			// mutex so we can handle new user input
+			if strings.Compare(output, stopToken) == 0 {
+				writeMutex.Unlock()
+			} else {
+				fmt.Println(output)
+			}
 		}
 	}()
 

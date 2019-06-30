@@ -24,9 +24,9 @@ func CommandHandler(userInputChan <-chan string, handlerOutputChan chan<- string
 			} else {
 				fileList = ListFiles(".")
 			}
-			output := strings.Join(fileList, "\n")
-			output += "\n"
-			handlerOutputChan <- output
+			for _, file := range fileList {
+				handlerOutputChan <- file
+			}
 		case "cd":
 			var output string
 			if len(toks) > 1 {
@@ -45,6 +45,8 @@ func CommandHandler(userInputChan <-chan string, handlerOutputChan chan<- string
 		default:
 			handlerOutputChan <- "Unknown command!\n"
 		}
+		// this unlocks mutex so new prompt can be printed
+		handlerOutputChan <- "/STOP"
 	}
 	close(handlerOutputChan)
 }
