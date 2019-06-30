@@ -8,6 +8,7 @@ Contributions are also welcome!
 
 - [x] ls: List files in current directory
 - [x] ls \<path\>: List files at directory
+- [x] cd: Change directory to home directory
 - [x] cd \<path\>: Change directory
 - [x] pwd: Returns current working directory
 - [ ] cat \<file\>: Print contents of file to stdout
