@@ -23,7 +23,10 @@ func CommandHandler(userInputChan <-chan string, handlerOutputChan chan<- string
 				fileList = ListFiles(".")
 			}
 			output := strings.Join(fileList, "\n")
+			output += "\n"
 			handlerOutputChan <- output
+		case "pwd":
+			handlerOutputChan <- CurrentWD()
 		default:
 			handlerOutputChan <- "Unknown command!\n"
 		}
