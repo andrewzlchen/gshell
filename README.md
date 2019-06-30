@@ -18,9 +18,9 @@ I `lock` the mutex right before I print the prompt in the **Main Thread** so tha
 
 The 3 threads use channels to communicate amongst each other in the following manner:
 
-1. Main thread sends user input to Worker thread via channel
-2. Worker Thread receives command and processes it. Once the Worker Thread is done doing work, or whenever it has something to output, it sends the output to the Output Thread via channel
-3. The Output Thread receives what it needs to print, and when the Output Thread receives a stop token, it Unlocks the mutex so that the main thread can again receive user input
+1. `Main thread` sends user input to Worker thread via channel
+2. `Worker Thread` receives command and processes it. Once the `Worker Thread` is done doing work, or whenever it has something to output, it sends the output to the `Output Thread` via channel
+3. The `Output Thread` receives what it needs to print, and when the `Output Thread` receives a stop token, it Unlocks the mutex so that the `Main Thread` can again receive user input
 
 ## Feature Checklist
 
