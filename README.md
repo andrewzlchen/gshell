@@ -12,13 +12,15 @@ This shell is built using 3 goroutines, or threads:
 2. **Worker Thread**: A worker thread that takes user input and depending on the user input, will try to generate the correct answer to the user's request and sends it along to thread #1
 3. **Main Thread**: The main thread that handles STDIN (User input), and passes the user input to thread #2
 
-The way these threads talk to each other is a combination of the built-in `golang` mechanism, channels, and Mutexes. I `lock` the mutex right before I print the prompt in the main thread so that thread #1 can print all that it needs to print, and then when the last command finishes, I `unlock` the mutex so that the prompt in the main thread can print, and then we can receive new user input. 
+The way these threads talk to each other is a combination of the built-in `golang` mechanism, channels, and Mutexes.
+
+I `lock` the mutex right before I print the prompt in the **Main Thread** so that the **Output Thread** can print all that it needs to print, and then when the previous command finishes, I `unlock` the mutex so that the prompt in the **Main Thread** can print, and then we can receive new user input. 
 
 The 3 threads use channels to communicate amongst each other in the following manner:
 
-1. Main thread sends user input to Worker thread
-2. Once the Worker Thread is done doing work, or whenever it has something to output, it sends the output to the Output Thread
-3. When the Output Thread receives a stop token, it Unlocks the mutex so that the main thread can again receive user input
+1. Main thread sends user input to Worker thread via channel
+2. Worker Thread receives command and processes it. Once the Worker Thread is done doing work, or whenever it has something to output, it sends the output to the Output Thread via channel
+3. The Output Thread receives what it needs to print, and when the Output Thread receives a stop token, it Unlocks the mutex so that the main thread can again receive user input
 
 ## Feature Checklist
 
