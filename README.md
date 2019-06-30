@@ -36,10 +36,16 @@ The 3 threads use channels to communicate amongst each other in the following ma
 - [x] pwd: Returns current working directory
 - [x] cat \<file\>: Print contents of file to stdout
 
+## How to install
+
+1. Clone this repo
+2. Make sure to have a basic golang environment set up.
+3. Run `go get` to install 3rd party dependencies
+4. Run `go run main.go` to run the program
+
+
 ## How to Contribute
 
 If you want to implement a command, please create an issue, and I'll try to reply ASAP and give the okay.
 
 Tests would be nice.
-
-So far, this project is basically vanilla go, so once you clone this, it should be good to go. (pun intended.)
