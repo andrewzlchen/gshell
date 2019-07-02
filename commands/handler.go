@@ -55,16 +55,34 @@ func CommandHandler(userInputChan <-chan string, handlerOutputChan chan<- string
 			if len(toks) < 2 {
 				handlerOutputChan <- "Not enough arguments!\n"
 			} else if len(toks) == 2 {
-				output := Wd(toks[1])
-				if output != "" {
-					handlerOutputChan <- output
+				switch toks[1] {
+				case "list":
+					names := WdList()
+					for _, name := range names {
+						handlerOutputChan <- name
+					}
+				default:
+					output := Wd(toks[1])
+					if output != "" {
+						handlerOutputChan <- output
+					}
+				}
+			} else if len(toks) == 3 {
+				switch toks[1] {
+				case "add":
+					output := WdAdd(toks[2])
+					if output != "" {
+						handlerOutputChan <- output
+					}
+				case "rm":
+					output := WdRm(toks[2])
+					if output != "" {
+						handlerOutputChan <- output
+					}
+				default:
+					handlerOutputChan <- "Invalid usage of 'wd'\n"
 				}
 			}
-			// else if len(toks) == 3 {
-			// 	switch toks[1] {
-			// 	case "add"
-			// 	}
-			// }
 		default:
 			handlerOutputChan <- "Unknown command!\n"
 		}

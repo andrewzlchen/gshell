@@ -26,6 +26,8 @@ The 3 threads use channels to communicate amongst each other in the following ma
 
 - [ ] Colorized output
 - [ ] Tab completion
+- [ ] Command history
+- [ ] Ability to run shell scripts
 
 ## Command Checklist
 
@@ -37,7 +39,7 @@ The 3 threads use channels to communicate amongst each other in the following ma
 - [x] cat \<file\>: Print contents of file to stdout
 - [ ] tail \<file\>: Print last 10 lines of a file to terminal
 - [ ] tail -f \<file\>: Print last 10 lines of a file, but still listen until user kills process
-- [ ] wd \<name\>: Has a database of name:filepath key-value pairs, so that it remembers custom locations in file system and can `cd` to that location
+- [x] wd \<name\>: Has a database of name:filepath key-value pairs, so that it remembers custom locations in file system and can `cd` to that location
 - [ ] wd add \<name\>: Add current working directory to the `wd` database and associate this location with a name
 - [ ] wd rm \<name\>: Removes the entry from the `wd` database with a key of the specified name
 

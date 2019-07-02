@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"io/ioutil"
 	"os"
+	"strings"
 
 	"github.com/go-redis/redis"
 	"github.com/xchenny/gshell/configs"
@@ -57,4 +58,34 @@ func Wd(dirName string) string {
 	}
 	ChangeDir(path)
 	return ""
+}
+
+// WdAdd adds the association between a name and the current file directory
+func WdAdd(dirName string) string {
+	client := redis.NewClient(configs.RedisOptions())
+	currDir := strings.TrimSpace(CurrentWD())
+	err := client.Set(dirName, currDir, 0).Err()
+	if err != nil {
+		return fmt.Sprintf("Error occurred while setting name to filepath: %v\n", err)
+	}
+	return ""
+}
+
+// WdRm removes the association between a specified name and its filepath
+func WdRm(dirName string) string {
+	client := redis.NewClient(configs.RedisOptions())
+	err := client.Del(dirName).Err()
+	if err != nil {
+		return fmt.Sprintf("Error occurred while deleting name '%s': %v\n", dirName, err)
+	}
+	return ""
+}
+
+func WdList() []string {
+	client := redis.NewClient(configs.RedisOptions())
+	keys, err := client.Keys("*").Result()
+	if err != nil {
+		return []string{fmt.Sprintf("Error occurred while getting list of names: %v\n", err)}
+	}
+	return keys
 }
