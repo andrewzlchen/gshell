@@ -1,6 +1,9 @@
 package commands
 
 import (
+	"bytes"
+	"fmt"
+	"os/exec"
 	"strings"
 
 	"github.com/mitchellh/go-homedir"
@@ -43,8 +46,8 @@ func CommandHandler(userInputChan <-chan string, handlerOutputChan chan<- string
 		case "pwd":
 			handlerOutputChan <- CurrentWD()
 		case "cat":
-			if len(toks) < 2 {
-				handlerOutputChan <- "Not enough arguments!\n"
+			if len(toks) != 2 {
+				handlerOutputChan <- "Incorrect number of arguments!\n"
 			} else {
 				fileContents := Cat(toks[1])
 				for _, line := range fileContents {
@@ -84,7 +87,17 @@ func CommandHandler(userInputChan <-chan string, handlerOutputChan chan<- string
 				}
 			}
 		default:
-			handlerOutputChan <- "Unknown command!\n"
+			// Exec everything else
+			handlerOutputChan <- "Did not implement this command, exec-ing..."
+			cmd := exec.Command(toks[0], toks[1:]...)
+			var out bytes.Buffer
+			cmd.Stdout = &out
+			err := cmd.Run()
+			if err != nil {
+				handlerOutputChan <- fmt.Sprintf("Could not exec command. Error: %v\n", err)
+			}
+			handlerOutputChan <- out.String()
+
 		}
 		// this unlocks mutex so new prompt can be printed
 		handlerOutputChan <- "/STOP"
