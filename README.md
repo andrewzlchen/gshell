@@ -1,6 +1,6 @@
 # gshell
 
-gshell, or GoShell is a small shell project that I am building as a side project. The plan is to implement some commands whenever I have the time and slowly increase the complexity of this project. The goal is to try and make this shell as full-featured as possible while not just `exec`ing (This may change in the future).
+gshell, or GoShell is a small shell project that I am building as a side project. The plan is to implement some commands whenever I have the time and slowly increase the complexity of this project. The goal is to try and make this shell as full-featured as possible and `exec`ing all other unsupported commands.
 
 Contributions are also welcome!
 
